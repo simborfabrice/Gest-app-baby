@@ -1,0 +1,82 @@
+@import "tailwindcss";
+
+@layer base {
+  body {
+    font-family: 'Plus Jakarta Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  }
+  
+  code, pre, .font-mono {
+    font-family: 'JetBrains Mono', monospace;
+  }
+}
+
+/* Dynamic theme helper classes for all boxes and cards */
+.theme-box, .theme-card {
+  background-color: var(--theme-box-bg, #ffffff);
+  border-color: var(--theme-box-border, rgba(0, 0, 0, 0.12));
+  border-radius: var(--theme-radius, 1rem);
+  transition: background-color 0.2s ease, border-color 0.2s ease, border-radius 0.2s ease;
+}
+
+.theme-box-alt, .theme-card-alt {
+  background-color: var(--theme-box-bg-alt, #ffffff);
+  border-color: var(--theme-secondary-border, rgba(37, 99, 235, 0.20));
+  border-radius: var(--theme-radius, 1rem);
+  transition: background-color 0.2s ease, border-color 0.2s ease, border-radius 0.2s ease;
+}
+
+.theme-radius {
+  border-radius: var(--theme-radius, 1rem);
+}
+
+.theme-gradient-primary {
+  background: linear-gradient(135deg, var(--theme-primary, #f43f5e), var(--theme-secondary, #2563eb));
+}
+
+.theme-gradient-subtle {
+  background: linear-gradient(135deg, var(--theme-primary-5, rgba(244, 63, 94, 0.05)), var(--theme-secondary-5, rgba(37, 99, 235, 0.05)));
+}
+
+.theme-btn-primary {
+  background: linear-gradient(135deg, var(--theme-primary, #f43f5e), var(--theme-secondary, #2563eb));
+  color: #ffffff;
+}
+
+.theme-btn-primary:hover {
+  filter: brightness(1.08);
+}
+
+.theme-btn-outline {
+  color: var(--theme-primary, #f43f5e);
+  background-color: var(--theme-primary-5, rgba(244, 63, 94, 0.05));
+  border-color: var(--theme-primary-border, rgba(244, 63, 94, 0.25));
+}
+
+/* Print styling for official documents, payslips, contracts and certificates */
+@media print {
+  header, nav, button, .no-print {
+    display: none !important;
+  }
+
+  body {
+    background-color: #ffffff !important;
+    color: #000000 !important;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+
+  main {
+    max-width: 100% !important;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+
+  .printable-area {
+    border: none !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+    margin: 0 auto !important;
+    max-width: 100% !important;
+    page-break-after: avoid;
+  }
+}

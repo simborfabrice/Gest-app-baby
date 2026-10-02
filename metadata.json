@@ -1,0 +1,6 @@
+{
+  "name": "NounouExpert - Gestion Assistante Maternelle (CCN IDCC 3239)",
+  "description": "Application professionnelle pour Assistante Maternelle et Parents Employeurs conforme à la convention collective nationale IDCC 3239 : plannings réels, calcul paie automatisé, déclaration Pajemploi, contrats, congés payés, régularisations et solde de tout compte.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
