@@ -16,6 +16,7 @@ import { NewContractModal } from './components/NewContractModal';
 import { LogoVariant } from './components/Logo';
 import { LogoPickerModal } from './components/LogoPickerModal';
 import { ThemeModal } from './components/ThemeModal';
+import { EditChildModal } from './components/EditChildModal';
 
 import { 
   Calendar, 
@@ -90,6 +91,7 @@ export default function App() {
   const [isNewContractOpen, setIsNewContractOpen] = useState(false);
   const [isLogoPickerOpen, setIsLogoPickerOpen] = useState(false);
   const [isThemeModalOpen, setIsThemeModalOpen] = useState(false);
+  const [isEditChildOpen, setIsEditChildOpen] = useState(false);
 
   // Theme settings state with localStorage persistence
   const [theme, setTheme] = useState<AppTheme>(() => {
@@ -221,6 +223,15 @@ export default function App() {
     setActiveContractId(newContract.id);
   };
 
+  const handleDeleteContract = (contractId: string) => {
+    if (contracts.length <= 1) return;
+    const remaining = contracts.filter(c => c.id !== contractId);
+    setContracts(remaining);
+    if (activeContractId === contractId) {
+      setActiveContractId(remaining[0].id);
+    }
+  };
+
   const handleExportData = () => {
     const exportData = {
       contracts,
@@ -265,6 +276,7 @@ export default function App() {
         activeContractId={activeContractId}
         onSelectContract={setActiveContractId}
         onNewContract={() => setIsNewContractOpen(true)}
+        onOpenEditChild={() => setIsEditChildOpen(true)}
         selectedYear={selectedYear}
         selectedMonth={selectedMonth}
         onSelectYear={setSelectedYear}
@@ -335,6 +347,7 @@ export default function App() {
               onUpdateDay={handleUpdateDay}
               onApplyDefaultSchedule={handleApplyDefaultSchedule}
               onClearMonth={handleClearMonth}
+              onOpenEditChild={() => setIsEditChildOpen(true)}
             />
           )}
 
@@ -435,6 +448,19 @@ export default function App() {
           }
         }}
       />
+
+      {/* Edit Child Profile Modal */}
+      {activeContract && (
+        <EditChildModal
+          isOpen={isEditChildOpen}
+          onClose={() => setIsEditChildOpen(false)}
+          contract={activeContract}
+          onSaveContract={handleSaveContract}
+          onDeleteContract={contracts.length > 1 ? handleDeleteContract : undefined}
+          primaryColor={theme.primaryColor}
+          secondaryColor={theme.secondaryColor}
+        />
+      )}
     </div>
   );
 }

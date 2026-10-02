@@ -11,7 +11,9 @@ import {
   UserCheck,
   Palette,
   Sliders,
-  Sparkles
+  Sparkles,
+  UserCog,
+  Pencil
 } from 'lucide-react';
 
 interface HeaderProps {
@@ -19,6 +21,7 @@ interface HeaderProps {
   activeContractId: string;
   onSelectContract: (id: string) => void;
   onNewContract: () => void;
+  onOpenEditChild: () => void;
   selectedYear: number;
   selectedMonth: number;
   onSelectYear: (year: number) => void;
@@ -43,6 +46,7 @@ export const Header: React.FC<HeaderProps> = ({
   activeContractId,
   onSelectContract,
   onNewContract,
+  onOpenEditChild,
   selectedYear,
   selectedMonth,
   onSelectYear,
@@ -150,6 +154,7 @@ export const Header: React.FC<HeaderProps> = ({
             <span className="text-xs font-bold text-blue-900/60 uppercase tracking-wider flex items-center mr-1">
               <UserCheck className="w-3.5 h-3.5 mr-1 text-blue-500" /> Enfant :
             </span>
+            
             {contracts.map(contract => {
               const isSelected = contract.id === activeContractId;
               return (
@@ -182,6 +187,24 @@ export const Header: React.FC<HeaderProps> = ({
                 </button>
               );
             })}
+
+            {/* Modifier la fiche enfant button */}
+            {activeContract && (
+              <button
+                onClick={onOpenEditChild}
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold transition-all whitespace-nowrap border shadow-2xs hover:scale-102"
+                style={{
+                  color: theme.primaryColor,
+                  backgroundColor: `${theme.primaryColor}15`,
+                  borderColor: `${theme.primaryColor}40`,
+                }}
+                title={`Modifier la fiche enfant de ${activeContract.childFirstName} (identité, santé, parents, tarifs, planning)`}
+              >
+                <UserCog className="w-3.5 h-3.5" />
+                <span>Modifier Fiche ({activeContract.childFirstName})</span>
+                <Pencil className="w-3 h-3 opacity-70" />
+              </button>
+            )}
 
             <button
               onClick={onNewContract}

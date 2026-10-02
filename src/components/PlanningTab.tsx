@@ -13,7 +13,9 @@ import {
   Info,
   ChevronDown,
   LayoutGrid,
-  Table as TableIcon
+  Table as TableIcon,
+  Baby,
+  UserCog
 } from 'lucide-react';
 
 interface PlanningTabProps {
@@ -24,6 +26,7 @@ interface PlanningTabProps {
   onUpdateDay: (updatedDay: AttendanceDay) => void;
   onApplyDefaultSchedule: () => void;
   onClearMonth: () => void;
+  onOpenEditChild?: () => void;
 }
 
 const STATUS_LABELS: Record<DayStatus, { label: string; shortLabel: string; badgeClass: string; isPayable: boolean }> = {
@@ -86,6 +89,7 @@ export const PlanningTab: React.FC<PlanningTabProps> = ({
   onUpdateDay,
   onApplyDefaultSchedule,
   onClearMonth,
+  onOpenEditChild,
 }) => {
   const [filter, setFilter] = useState<'all' | 'planned' | 'modifications'>('all');
   const [viewMode, setViewMode] = useState<'grid' | 'table'>('grid');
@@ -358,6 +362,22 @@ export const PlanningTab: React.FC<PlanningTabProps> = ({
             <RotateCcw className="w-3.5 h-3.5 mr-1.5" />
             Réinitialiser
           </button>
+
+          {onOpenEditChild && (
+            <button
+              onClick={onOpenEditChild}
+              className="inline-flex items-center px-3 py-1.5 text-xs font-bold rounded-xl border transition-colors shadow-2xs hover:scale-102"
+              style={{
+                color: 'var(--theme-primary, #f43f5e)',
+                backgroundColor: 'var(--theme-primary-10, rgba(244,63,94,0.08))',
+                borderColor: 'var(--theme-primary-border, rgba(244,63,94,0.30))'
+              }}
+              title={`Consulter et modifier la fiche enfant de ${contract.childFirstName}`}
+            >
+              <UserCog className="w-3.5 h-3.5 mr-1.5" />
+              Fiche de {contract.childFirstName}
+            </button>
+          )}
         </div>
       </div>
 

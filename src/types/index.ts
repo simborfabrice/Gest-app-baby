@@ -77,6 +77,11 @@ export interface Contract {
   cpPaymentMethod: 'juin' | 'prise_principale' | 'au_fur_et_a_mesure';
   
   // Notes / Clauses particulières
+  childGender?: 'fille' | 'garcon' | 'non_precise';
+  dietaryRequirements?: string;
+  emergencyContact?: string;
+  authorizedPickupPersons?: string;
+  pajemploiEmployerNumber?: string;
   medicalDoctor?: string;
   allergies?: string;
   notes?: string;
